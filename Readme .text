@@ -1,0 +1,66 @@
+Last we left off, we hooked up our search component all the way into the location context, so by triggering a search, we trigger an update
+in the location context that will go and fetch the location of what we filled in and subsequently track all of the state.And we had console 
+logs to make sure that what we were getting made sense.that location isn't a value.So what we have to do is we have to say if location, we
+always have to check if we have a location and if it's a proper value that's going to play a big role in us being able to search here.
+One thing we need to do is we need to add location here so that every time location changes, it actually renders.for key prop warning
+So what we want to do here is we want to take the index of the array, which is not a great way to give a key.Right.Any time you give an 
+index as a key, it's not guaranteed to update correctly.But what we're going to do here is we're going to use the index as part of the key.
+So we're going to say key is equal to and we're going to construct the key.
+
+
+We put in the path we're going to navigate to which is restaurant detail.Then we add comma.We opened up an object and we said the restaurant
+was equal to item because as you remember, item is our restaurant.So we're passing restaurant en route to restaurant detail as we go over 
+there.
+
+
+In Maps search component
+Well, we're only setting the search keyword for the initial render.So we need to make sure that any time the keyword updates, we update the
+search keyword inside of here.So what we can do is we can set a use effect inside of our search component locally and we can say any time 
+the keyword changes.Let's set the search keyword, let's set the local search keyword to the keyword.
+Map Location Rendering
+So what we're going to do is we're going to write a useEffect.And this use effect is going to be what is going to calculate exactly where
+we're supposed to render.Latitude Delta is what determines how close the zoom level is going to be on the map.
+map callout.component
+this has to do with another difference between Android and iOS.Specifically with the map you call out, there is currently an issue where
+the initial render of the image component inside of the map will not resolve the image correctly.And so a way around this is to use the 
+react native web view.
+
+
+favourites
+to create context, which is going to be the context that is going to hold the favorites.Now, as with everything, we're going to export a 
+const favourite's context provider, which is going to be the one that wraps the tree or the app is in order for us to be able to supply the
+favorites to the tree of react.
+isFavourite fxn 
+and this will tell us whether or not it exists in the array of favorites.And so what we'll know then is that, well, we can do more complex 
+interactions.For instance, if it is the favorite, what we can say here is do a heart, otherwise do a heart outline
+
+
+We can pull in the favorites, the current favorites, and we can pass them to the favorites bar like.So now here you asking me why do it 
+this way as supposed to having the favorites bar.Just use the context directly.Well, the reason for that is the favorite bar should be able
+to receive its favorites at any given point from anywhere, just as a prop.It should be something that flows in.And so the question then 
+becomes, well, why didn't we do that to the favorites component?Why does that one take in a restaurant but kind of hook itself on to the 
+context? And that is because we consider this  const Favorite to be more of a module.It's kind of a self-contained feature of sorts.It 
+interacts without any outside help and it's just there to position itself.If we were to take in all of these different methods from the 
+outside, it would defeat the purpose {addToFavourites etc}.We could even go so far as to put this inside of a module favorites folder.But I
+decided to leave it as a favourite component.We could even potentially rename it to favorite module.But all of those are semantics.It's just
+ the reasoning behind why we're doing this.
+
+
+   // const onRegister = (email, password, repeatedPassword) => {
+    //     if (password !== repeatedPassword) {
+    //         setError("Error: Passwords do not match");
+    //         return;
+    //     }
+    //     firebase
+    //         .auth()
+    //         .createUserWithEmailAndPassword(email, password)
+    //         .then((u) => {
+    //             setUser(u);
+    //             setIsLoading(false);
+    //         })
+    //         .catch((e) => {
+    //             setIsLoading(false);
+    //             setError(e.toString());
+    //         });
+
+    // };
